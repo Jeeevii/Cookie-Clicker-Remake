@@ -32,8 +32,9 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 500%;
+  line-height: 5;
+  color: orange;
 }
 
 #app {
