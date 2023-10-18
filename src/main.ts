@@ -36,7 +36,7 @@ app.append(hammer);
 
 // hammer description
 const hammerDes = document.createElement("div");
-hammerDes.textContent = `Use Hammer to break into the Bank!`;
+hammerDes.textContent = `Use Hammer a hammer to break into a car!`;
 app.append(hammerDes);
 
 // upgrade costs
