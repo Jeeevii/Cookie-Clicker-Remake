@@ -22,21 +22,14 @@ cashCount.textContent = `Money Stolen: ${cashCounter}`;
 app.append(cashCount);
 
 // clicker text incriminating
-
 cash.addEventListener("click", () => {
     cashCounter += 1;
     updateDisplay();
 });
 
+// upgrade effect
+let passiveClicks = 0;
 
-// upgrade handler
-hammer.addEventListener("click", () => {
-  if (cashCounter >= hammerCost) {
-    cashCounter -= hammerCost; // Spend the money
-    passiveClicks += 0.5; // increase passive income from hammer
-    updateHammer();
-  }
-});
 
 // continuous counter growth using requestAnimationFrame
 function continuousCounterGrowth() {
@@ -53,5 +46,11 @@ function updateDisplay() {
   cashCount.textContent = `Money Stolen: ${Math.round(cashCounter)}`; // round the cashCounter for display
   updateHammer();
 }
+
+// add a setInterval for continuous counter growth
+setInterval(() => {
+  cashCounter += passiveClicks; // increment by the passive income per second
+  updateDisplay();
+}, 1000);
 
 updateDisplay();
