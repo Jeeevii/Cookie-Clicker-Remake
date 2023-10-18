@@ -27,9 +27,43 @@ cash.addEventListener("click", () => {
     updateDisplay();
 });
 
+// hammer upgrade
+const hammer = document.createElement("button");
+hammer.textContent = "🔨";
+hammer.style.fontSize = "20px";
+hammer.disabled = true;
+app.append(hammer);
+
+// hammer description
+const hammerDes = document.createElement("div");
+hammerDes.textContent = `Use Hammer to break into the Bank!`;
+app.append(hammerDes);
+
+// upgrade costs
+const hammerCost = 10;
+
 // upgrade effect
 let passiveClicks = 0;
 
+// check upgrade
+function updateHammer() {
+  if (cashCounter >= hammerCost) {
+    hammer.disabled = false;
+    hammer.textContent = "🔨 Buy for 10💵";
+  } else {
+    hammer.disabled = true;
+    hammer.textContent = "🔨 Cost: 10💵";
+  }
+}
+
+// upgrade handler
+hammer.addEventListener("click", () => {
+  if (cashCounter >= hammerCost) {
+    cashCounter -= hammerCost; // Spend the money
+    passiveClicks += 0.5; // increase passive income from hammer
+    updateHammer();
+  }
+});
 
 // continuous counter growth using requestAnimationFrame
 function continuousCounterGrowth() {
