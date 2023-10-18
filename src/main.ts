@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Jeevi's Game";
+const gameName = "Jeevi's Bank Heist Game";
 document.title = gameName;
 const header = document.createElement("h1");
 header.innerHTML = gameName;
@@ -12,29 +12,46 @@ let cashCounter = 0;
 
 // cash button
 const cash = document.createElement("button");
-cash.innerHTML = "💵";
-cash.style.fontSize = "30pt";
+cash.textContent = "💵";
+cash.style.fontSize = "25px";
 app.append(cash);
 
-// clicker text 
-
+// clicker text
 const cashCount = document.createElement("div");
-cashCount.innerHTML = `Money Stolen: ${cashCounter}`;
-cashCount.style.fontSize = "15pt";
+cashCount.textContent = `Money Stolen: ${cashCounter}`;
 app.append(cashCount);
-
-// hammer upgrade
-
-const hammer = document.createElement("button");
-hammer.innerHTML = "🔨";
-hammer.style.fontSize = "30pt";
-app.append(hammer);
 
 // clicker text incriminating
 
 cash.addEventListener("click", () => {
     cashCounter += 1;
-    cashCount.innerHTML = `Money Stolen: ${cashCounter}`;
-    
+    updateDisplay();
 });
 
+
+// upgrade handler
+hammer.addEventListener("click", () => {
+  if (cashCounter >= hammerCost) {
+    cashCounter -= hammerCost; // Spend the money
+    passiveClicks += 0.5; // increase passive income from hammer
+    updateHammer();
+  }
+});
+
+// continuous counter growth using requestAnimationFrame
+function continuousCounterGrowth() {
+  cashCounter += passiveClicks / 60; // increment by 1/60 of the passive income per frame
+  updateDisplay();
+  requestAnimationFrame(continuousCounterGrowth); // continue the loop
+}
+
+// start the continuous counter growth loop
+continuousCounterGrowth();
+
+// display update
+function updateDisplay() {
+  cashCount.textContent = `Money Stolen: ${Math.round(cashCounter)}`; // round the cashCounter for display
+  updateHammer();
+}
+
+updateDisplay();
